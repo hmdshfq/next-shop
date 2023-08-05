@@ -1,20 +1,19 @@
 'use client'
 import useSWR from 'swr';
 import Image from 'next/image'
-
-
-async function fetcher(endpoint) {
-    let response = await fetch(endpoint);
-    let json = await response.json();
-    return json;
-}
+import fetcher from '@/utilities/fetcher'
 
 export default function Product({ params }) {
     const ENDPOINT = `https://dummyjson.com/products/${params.id}`;
-    const { data, error } = useSWR(ENDPOINT, fetcher);
-    console.log(data)
+    const { data, isLoading, error } = useSWR(ENDPOINT, fetcher);
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+    if (error) {
+        return <p>Something went wrong!</p>
+    }
     return (
-        data ? <div>
+        <div>
             <h1>{data.title}</h1>
             <div>
                 <Image src={data.thumbnail} alt={data.title} width="500" height="500"></Image>
@@ -25,6 +24,6 @@ export default function Product({ params }) {
             <p>{data.rating}</p>
             <p>{data.brand}</p>
             <p>{data.category}</p>
-        </div> : ''
+        </div>
     );
 }

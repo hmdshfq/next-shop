@@ -1,12 +1,27 @@
-.main {
+
+.li {
+  list-style-type: none;
 }
 .wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .card {
   max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: hsl(260 50% 90%);
+  min-height: 100%;
+}
+.image {
+  object-fit: cover;
+}
+.information {
+  padding: 30px;
+  flex: 1;
 }
